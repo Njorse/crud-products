@@ -1,16 +1,16 @@
 import os
 import sys
 
-# agregar la carpeta raíz del proyecto al path
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from crud import create_product, read_products, update_product, delete_product
+
 
 FILE_PATH = "products.json"
 
 
 def setup_function():
-    """Limpiar el archivo JSON antes de cada test"""
+    """Limpiar archivo antes de cada test"""
     if os.path.exists(FILE_PATH):
         os.remove(FILE_PATH)
 
