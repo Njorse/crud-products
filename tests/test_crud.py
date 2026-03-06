@@ -1,16 +1,13 @@
 import os
 import sys
-
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
 from crud import create_product, read_products, update_product, delete_product
 
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 FILE_PATH = "products.json"
 
 
 def setup_function():
-    """Limpiar archivo antes de cada test"""
     if os.path.exists(FILE_PATH):
         os.remove(FILE_PATH)
 
