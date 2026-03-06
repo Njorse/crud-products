@@ -1,36 +1,46 @@
-import crud
+import os
+import json
+import pytest
+
+from crud import create_product, read_products, update_product, delete_product
+
+FILE_PATH = "products.json"
+
+
+def setup_function():
+    """Se ejecuta antes de cada test"""
+    if os.path.exists(FILE_PATH):
+        os.remove(FILE_PATH)
 
 
 def test_create_product():
-    crud.products.clear()
-    crud.create_product("Laptop", 1500)
+    product = {"id": 1, "name": "Laptop"}
 
-    assert len(crud.products) == 1
-    assert crud.products[0]["name"] == "Laptop"
-
-
-def test_get_products():
-    crud.products.clear()
-    crud.create_product("Mouse", 50)
-
-    products = crud.get_products()
+    create_product(product)
+    products = read_products()
 
     assert len(products) == 1
+    assert products[0]["name"] == "Laptop"
 
 
 def test_update_product():
-    crud.products.clear()
-    crud.create_product("Keyboard", 100)
+    product = {"id": 1, "name": "Laptop"}
 
-    crud.update_product(0, "Mechanical Keyboard", 120)
+    create_product(product)
+    update_product(1, {"name": "Laptop Gamer"})
 
-    assert crud.products[0]["name"] == "Mechanical Keyboard"
+    products = read_products()
+
+    assert products[0]["name"] == "Laptop Gamer"
 
 
 def test_delete_product():
-    crud.products.clear()
-    crud.create_product("Monitor", 300)
+    product = {"id": 1, "name": "Laptop"}
 
-    crud.delete_product(0)
+    create_product(product)
+    result = delete_product(1)
 
-    assert len(crud.products) == 0
+    products = read_products()
+
+    assert result is True
+    assert len(products) == 0
