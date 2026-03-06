@@ -1,6 +1,7 @@
 import json
 import os
 
+
 FILE_PATH = "products.json"
 
 
