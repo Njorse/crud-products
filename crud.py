@@ -46,3 +46,15 @@ def delete_product(product_id):
 
     _save_data(new_data)
     return True
+
+if __name__ == "__main__":
+    print("Probando CRUD...")
+
+    create_product({"id": 1, "name": "Laptop", "price": 1200})
+    print(read_products())
+
+    update_product(1, {"price": 1000})
+    print(read_products())
+
+    delete_product(1)
+    print(read_products())
