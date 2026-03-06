@@ -1,8 +1,5 @@
 import os
 import sys
-
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
 from crud import create_product, read_products, update_product, delete_product
 
 FILE_PATH = "products.json"
@@ -16,6 +13,7 @@ def setup_function():
 def test_create_product():
     product = {"id": 1, "name": "Laptop", "price": 1200}
     create_product(product)
+
     products = read_products()
 
     assert len(products) == 1
