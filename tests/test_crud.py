@@ -1,28 +1,36 @@
-import sys
-import os
-
-# Agregar la carpeta raíz del proyecto al path
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
 import crud
 
 
 def test_create_product():
-    product = {"id": 1, "name": "Laptop", "price": 1200}
-    result = crud.create_product(product)
-    assert result["name"] == "Laptop"
+    crud.products.clear()
+    crud.create_product("Laptop", 1500)
+
+    assert len(crud.products) == 1
+    assert crud.products[0]["name"] == "Laptop"
 
 
-def test_read_products():
-    products = crud.read_products()
-    assert isinstance(products, list)
+def test_get_products():
+    crud.products.clear()
+    crud.create_product("Mouse", 50)
+
+    products = crud.get_products()
+
+    assert len(products) == 1
 
 
 def test_update_product():
-    updated = crud.update_product(1, {"price": 1000})
-    assert updated["price"] == 1000
+    crud.products.clear()
+    crud.create_product("Keyboard", 100)
+
+    crud.update_product(0, "Mechanical Keyboard", 120)
+
+    assert crud.products[0]["name"] == "Mechanical Keyboard"
 
 
 def test_delete_product():
-    result = crud.delete_product(1)
-    assert result is True
+    crud.products.clear()
+    crud.create_product("Monitor", 300)
+
+    crud.delete_product(0)
+
+    assert len(crud.products) == 0
